@@ -1,0 +1,10 @@
+<div class="my-container">
+    <div class="text-center">
+        <h1 class="show-title"><%= @task.title %></h1>
+        <%= button_to "Delete", {:controller => :tasks, :action => 'destroy'}, :method => :delete, class: 'my-btn grey-btn', id: "delete-btn-2" %>
+        <hr>
+        <p class="text-section"><%= @task.description %></p>
+        <a class="my-btn" id="back-btn" href="/tasks">Back</a>
+        
+    </div>
+</div>   

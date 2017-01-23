@@ -1,0 +1,66 @@
+<div id="welcome" class="text-center">
+    
+    <% if @tasks.blank? %>
+        <h2>Welcome to</h2>
+        <div class="brand brand-bg">Taskist</div>
+    
+    <% else %>
+        <div class="brand">Taskist</div>
+    <% end %>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <ul class="task-list"><!--aware-->
+            <% if @tasks.each do |task| %>
+                <li class="task-list-item">
+                    <a href="/tasks/<%= task.id %>" class="task-title">
+                        <%= task.title %>
+                    </a>
+                    <%= button_to "Delete", {:controller => :tasks, :action => 'destroy', :id => task.id }, :method => :delete, class: 'my-btn', id: "delete-btn" %><!--aware-->
+                </li>
+            <% end.empty? %>
+            </ul> <!--aware-->
+            
+            <div id="message-section">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <p id="empty-message">You have no tasks.</p>
+            </div>
+        
+            <% end %>
+            
+            <div id="start-btn-section">
+                <button type="button" class="my-btn" id="start-btn" data-toggle="modal" data-target="#add-task">Add a task</button><!--aware-->
+           </div>
+        </div><!--aware-->
+    </div>
+</div>
+       
+    <div class="modal fade" id="add-task" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">New Task</h3>
+              
+                <%= form_for :task, url: '/tasks' do |f| %>
+                    <div class="form-group">
+                        <label for="tasks_title" class="my-label">Title</label>
+                        <input type="text" id="tasks_title" name="task[title]" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tasks_description" class="my-label">Description</label>
+                        <textarea name="task[description]" id="tasks_description" class="form-control" rows="10"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="my-btn">Save</button>
+                        <button type="button" class="my-btn grey-btn" data-dismiss="modal">Close</button>
+                    </div> 
+                    
+                <% end %>
+                
+            </div>  
+        </div>
+    </div>
+
+
+
